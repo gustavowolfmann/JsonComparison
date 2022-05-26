@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 
 public class JsonDiffTest {
@@ -41,6 +42,7 @@ public class JsonDiffTest {
                                     System.out.println("Production Payment_methods tiene " +String.valueOf(pposize) +
                                         " opciones y local tiene "+String.valueOf(lposize));
                                 }
+                                compareMethods((ArrayNode)pponode,(ArrayNode)lponode);
                             }
                         }
 
@@ -58,6 +60,26 @@ public class JsonDiffTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private static void compareMethods(ArrayNode plist, ArrayNode llist){
+        HashMap<String,String> pKeys = new HashMap<>();
+        HashMap<String,String> lKeys = new HashMap<>();
+        for (JsonNode jsonNode:plist){
+            pKeys.put(jsonNode.path("id").toString()+":"+jsonNode.path("issuer").path("id").toString(),"");
+        }
+        for (JsonNode jsonNode:llist){
+            lKeys.put(jsonNode.path("id").toString()+":"+jsonNode.path("issuer").path("id").toString(),"");
+        }
+        for (String pk: pKeys.keySet()){
+            if (!(lKeys.containsKey(pk))) {
+                System.out.println("Solo Production Payment_methods tiene method " +pk);
+            }
+        }
+        for (String lk: lKeys.keySet()){
+            if (!(pKeys.containsKey(lk))) {
+                System.out.println("Solo Local Payment_methods tiene method " +lk);
+            }
+        }
     }
 }
