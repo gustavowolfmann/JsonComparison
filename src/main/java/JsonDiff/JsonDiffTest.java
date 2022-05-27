@@ -18,8 +18,8 @@ public class JsonDiffTest {
     public static void doTest()  {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            final String prod  = Files.readString(Path.of("/Users/gwolfmann/Downloads/JsonDiffTest/src/main/java/prodmco.json"), StandardCharsets.UTF_8);
-            final String local = Files.readString(Path.of("/Users/gwolfmann/Downloads/JsonDiffTest/src/main/java/localmco.json"), StandardCharsets.UTF_8);
+            final String prod  = Files.readString(Path.of("/Users/gwolfmann/Downloads/JsonDiffTest/src/main/java/prodmlb.json"), StandardCharsets.UTF_8);
+            final String local = Files.readString(Path.of("/Users/gwolfmann/Downloads/JsonDiffTest/src/main/java/localmlb.json"), StandardCharsets.UTF_8);
             JsonNode prodTree = mapper.readTree(prod);
             JsonNode localTree  = mapper.readTree(local);
             String[] classNames = {"account_money_info","coupons","experiments","payment_options","stored_cards","wallet_info_list"};
